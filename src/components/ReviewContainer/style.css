@@ -1,0 +1,25 @@
+#reviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviewContent {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review {
+  border-radius: var(--border-radius);
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.reviewTop {
+  display: flex;
+  justify-content: space-between;
+}
