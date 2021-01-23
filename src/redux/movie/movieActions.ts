@@ -49,6 +49,7 @@ export const fetchMovie = (id: string) => {
         // If it works, extract the movie from the response, dispatch MovieSuccess with the movie as input
         let movie = response.data.movie;
         movie.averageRating = response.data.averageRating;
+        console.log(movie);
         dispatch(fetchMovieSuccess(movie));
         dispatch(fetchReviews("movie", id) as any);
       })
