@@ -7,6 +7,7 @@ Some have payloads that correspond to the action.
 
 import Axios from "axios";
 import { Dispatch } from "redux";
+import { apiDomain } from "../../config/api";
 import { setAlert } from "../alert/alertActions";
 import { fetchMovie } from "../movie/movieActions";
 import {
@@ -142,7 +143,7 @@ export const postReview = (review: Review, token: string) => {
     // First dispatch postReviewRequest
     dispatch(postReviewRequest());
     // Then try to post review with axios. Sends the review object with a config object with the token.
-    return Axios.post("http://localhost:5000/review/", review, getConfig(token))
+    return Axios.post(apiDomain() + "/review/", review, getConfig(token))
       .then((response) => {
         // If it works
         // Dispatch postReviewSuccess
@@ -178,7 +179,7 @@ export const updateReview = (review: Review, id: string, token: string) => {
     };
     // Put on correct path with updatedReview and configobject with token.
     return Axios.put(
-      "http://localhost:5000/review/" + id,
+      apiDomain() + "/review/" + id,
       updatedReview,
       getConfig(token)
     )
@@ -211,7 +212,7 @@ export const deleteReview = (id: string, token: string) => {
     // First, dispatch deleteReviewRequest
     dispatch(deleteReviewRequest());
     // Then try to delete on path with config object of token.
-    return Axios.delete("http://localhost:5000/review/" + id, getConfig(token))
+    return Axios.delete(apiDomain() + "/review/" + id, getConfig(token))
       .then((response) => {
         // If it works, dispatch deleteReviewSuccess
         dispatch(deleteReviewSuccess());
@@ -238,7 +239,7 @@ export const fetchReviews = (type: "movie" | "user", id: string) => {
   return (dispatch: Dispatch) => {
     // First, dispatch fetchReviewsRequest
     dispatch(fetchReviewsRequest());
-    return Axios.get("http://localhost:5000/" + type + "/" + id + "/reviews/")
+    return Axios.get(apiDomain() + "/" + type + "/" + id + "/reviews/")
       .then((response) => {
         // If it works, dispatch fetchReviewsSuccess with the reviews in data in the response
         dispatch(fetchReviewsSuccess(response.data.reviews));
@@ -262,7 +263,7 @@ export const fetchReview = (id: string) => {
     // First dispatch fetchReviewRequest
     dispatch(fetchReviewRequest());
     // Then try to get on correct path
-    return Axios.get("http://localhost:5000/review/" + id)
+    return Axios.get(apiDomain() + "/review/" + id)
       .then((response) => {
         // If it works, dispatch fetchReviewSuccess with the data of the response
         dispatch(fetchReviewSuccess(response.data));

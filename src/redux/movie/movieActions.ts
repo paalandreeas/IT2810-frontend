@@ -16,6 +16,7 @@ import Axios from "axios";
 import { Dispatch } from "redux";
 import { fetchReviews } from "../review/reviewActions";
 import { setAlert } from "../alert/alertActions";
+import { apiDomain } from "../../config/api";
 
 const fetchMovieRequest = (): MovieActionTypes => {
   return {
@@ -43,7 +44,7 @@ export const fetchMovie = (id: string) => {
     // First, dispatch a fetchMovieRequest
     dispatch(fetchMovieRequest());
     // Then, try to get on /movie/id/ + the id of the movie to get.
-    Axios.get("http://localhost:5000/movie/" + id)
+    Axios.get(apiDomain() + "/movie/" + id)
       .then((response) => {
         // If it works, extract the movie from the response, dispatch MovieSuccess with the movie as input
         let movie = response.data.movie;

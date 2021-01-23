@@ -8,6 +8,7 @@ Some have payloads that correspond to the action.
 import Axios from "axios";
 import qs from "qs";
 import { Dispatch } from "redux";
+import { apiDomain } from "../../config/api";
 import { ParamsInterface } from "../../interfaces/ParamsInterface";
 import { setAlert } from "../alert/alertActions";
 import {
@@ -75,7 +76,7 @@ export const fetchResults = (params: ParamsInterface) => {
     // First, dispatch a fetchResultsRequest
     dispatch(fetchResultsRequest());
     // Then, try to get on /movie with params serialized by qs.
-    Axios.get("http://localhost:5000/movie", {
+    Axios.get(apiDomain() + "/movie", {
       params: params,
       paramsSerializer: (params) => {
         return qs.stringify(params);

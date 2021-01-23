@@ -7,6 +7,7 @@ Some have payloads that correspond to the action.
 
 import Axios from "axios";
 import { Dispatch } from "redux";
+import { apiDomain } from "../../config/api";
 import { setAlert } from "../alert/alertActions";
 import { fetchReviews } from "../review/reviewActions";
 import {
@@ -129,7 +130,7 @@ export const loginUser = (username: string, password: string) => {
     // First dispatch userLoginRequest
     dispatch(userLoginRequest());
     // Then try to post user with axios. Sends the user object.
-    return Axios.post("http://localhost:5000/user/login", {
+    return Axios.post(apiDomain() + "/user/login", {
       username: username,
       password: password,
     })
@@ -167,7 +168,7 @@ export const registerUser = (username: string, password: string) => {
     // First dispatch userRegisterRequest
     dispatch(userRegisterRequest());
     // Then try to post user with axios. Sends the user object.
-    return Axios.post("http://localhost:5000/user/register", {
+    return Axios.post(apiDomain() + "/user/register", {
       username: username,
       password: password,
     })
@@ -211,7 +212,7 @@ export const fetchUser = (userID: string) => {
     // First dispatch fetchUserRequest
     dispatch(fetchUserRequest());
     // Then try to get user with axios.
-    return Axios.get("http://localhost:5000/user/" + userID)
+    return Axios.get(apiDomain() + "/user/" + userID)
       .then((response) => {
         // If it works
         // Dispatch fetchUserSuccess with correct viewingUser based on response
@@ -241,10 +242,7 @@ export const deleteUser = (userID: string, token: string) => {
     // First dispatch deleteUserRequest with userID
     dispatch(deleteUserRequest(userID));
     // Then try to delete user with axios. Sends the config object with token.
-    return Axios.delete(
-      "http://localhost:5000/user/" + userID,
-      getConfig(token)
-    )
+    return Axios.delete(apiDomain() + "/user/" + userID, getConfig(token))
       .then((response) => {
         // If it works
         // Dispatch deleteUserSuccess
